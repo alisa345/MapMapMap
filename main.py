@@ -18,7 +18,7 @@ class MyWidget(QMainWindow):
     def find(self):
         self.api()
         map_photo = QPixmap(self.map_pic)
-        map_photo = map_photo.scaled(1121, 541)
+        map_photo = map_photo.scaled(1051, 751)
         self.map_lable.setPixmap(map_photo)
 
     def api(self):
