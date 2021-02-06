@@ -11,9 +11,9 @@ class MyWidget(QMainWindow):
         super().__init__()
         uic.loadUi('ui_map.ui', self)
         self.button_find.clicked.connect(self.find)
-        self.edit_longitude.setText('56.84822763650701')
-        self.edit_latitude.setText('60.58985462732907')
-        self.edit_latitude.setText('edit_scale')
+        self.edit_longitude.setText('60.58985462732907')
+        self.edit_latitude.setText('56.84822763650701')
+        self.edit_scale.setText('0.01')
 
     def find(self):
         self.api()
