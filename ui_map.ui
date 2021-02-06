@@ -88,16 +88,6 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="edit_scale">
-   <property name="geometry">
-    <rect>
-     <x>90</x>
-     <y>110</y>
-     <width>231</width>
-     <height>16</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="map_lable">
    <property name="geometry">
     <rect>
@@ -122,6 +112,22 @@
    </property>
    <property name="text">
     <string>Поиск</string>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="doubleSpinBox">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>110</y>
+     <width>231</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <double>50.000000000000000</double>
+   </property>
+   <property name="singleStep">
+    <double>0.500000000000000</double>
    </property>
   </widget>
  </widget>

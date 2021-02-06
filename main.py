@@ -1,5 +1,6 @@
 import sys
 import requests
+import pythoncom, pyHook
 
 from PyQt5 import uic  # Импортируем uic
 from PyQt5.QtGui import QPixmap
@@ -15,16 +16,45 @@ class MyWidget(QMainWindow):
         self.edit_latitude.setText('56.84822763650701')
         self.edit_scale.setText('0.01')
 
+        def OnKeyboardEvent(event):
+            print('MessageName:', event.MessageName)
+            print('Message:', event.Message)
+            print('Time:', event.Time)
+            print('Window:', event.Window)
+            print('WindowName:', event.WindowName)
+            print('Ascii:', event.Ascii, chr(event.Ascii))
+            print('Key:', event.Key)
+            print('KeyID:', event.KeyID)
+            print('ScanCode:', event.ScanCode)
+            print('Extended:', event.Extended)
+            print('Injected:', event.Injected)
+            print('Alt', event.Alt)
+            print('Transition', event.Transition)
+            print('---')
+
+            return True
+
+        hm = pyHook.HookManager()
+        # watch for all mouse events
+        hm.KeyDown = OnKeyboardEvent
+        # set the hook
+        hm.HookKeyboard()
+        # wait forever
+        pythoncom.PumpMessages()
+
     def find(self):
         self.requests_api()
         map_photo = QPixmap(self.map_pic)
         map_photo = map_photo.scaled(1051, 751)
         self.map_lable.setPixmap(map_photo)
 
+    def chande_value(self):
+        pass
+
     def requests_api(self):
         lat = self.edit_latitude.text()
         lon = self.edit_longitude.text()
-        scale = self.edit_scale.text()
+        scale = self.edit_scale.value()
         api_server = "http://static-maps.yandex.ru/1.x/"
 
         params = {
