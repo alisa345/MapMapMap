@@ -26,12 +26,14 @@ class MyWidget(QMainWindow):
         lon = self.edit_longitude.text()
         scale = self.edit_scale.text()
         api_server = "http://static-maps.yandex.ru/1.x/"
+
         params = {
             "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
             "ll": ",".join([lon, lat]),
             "spn": ",".join([scale, scale]),
             "l": "map"
         }
+
         response = requests.get(api_server, params=params)
         self.map_pic = 'map.png'
 
