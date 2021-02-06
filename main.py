@@ -16,18 +16,16 @@ class MyWidget(QMainWindow):
         self.edit_scale.setText('0.01')
 
     def find(self):
-        self.api()
+        self.requests_api()
         map_photo = QPixmap(self.map_pic)
         map_photo = map_photo.scaled(1051, 751)
         self.map_lable.setPixmap(map_photo)
 
-    def api(self):
+    def requests_api(self):
         lat = self.edit_latitude.text()
         lon = self.edit_longitude.text()
         scale = self.edit_scale.text()
-
         api_server = "http://static-maps.yandex.ru/1.x/"
-
         params = {
             "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
             "ll": ",".join([lon, lat]),
@@ -36,6 +34,7 @@ class MyWidget(QMainWindow):
         }
         response = requests.get(api_server, params=params)
         self.map_pic = 'map.png'
+
         with open(self.map_pic, 'wb') as file:
             file.write(response.content)
 
