@@ -1,6 +1,6 @@
 import sys
 import requests
-import pythoncom, pyHook
+import keyboard
 
 from PyQt5 import uic  # Импортируем uic
 from PyQt5.QtGui import QPixmap
@@ -14,33 +14,14 @@ class MyWidget(QMainWindow):
         self.button_find.clicked.connect(self.find)
         self.edit_longitude.setText('60.58985462732907')
         self.edit_latitude.setText('56.84822763650701')
-        self.edit_scale.setText('0.01')
 
-        def OnKeyboardEvent(event):
-            print('MessageName:', event.MessageName)
-            print('Message:', event.Message)
-            print('Time:', event.Time)
-            print('Window:', event.Window)
-            print('WindowName:', event.WindowName)
-            print('Ascii:', event.Ascii, chr(event.Ascii))
-            print('Key:', event.Key)
-            print('KeyID:', event.KeyID)
-            print('ScanCode:', event.ScanCode)
-            print('Extended:', event.Extended)
-            print('Injected:', event.Injected)
-            print('Alt', event.Alt)
-            print('Transition', event.Transition)
-            print('---')
+        def keys_listener(e):
+            if e.name == 'page up' and e.event_type == 'up':
+                self.chande_value(1)
+            elif e.name == 'page down' and e.event_type == 'up':
+                self.chande_value(2)
 
-            return True
-
-        hm = pyHook.HookManager()
-        # watch for all mouse events
-        hm.KeyDown = OnKeyboardEvent
-        # set the hook
-        hm.HookKeyboard()
-        # wait forever
-        pythoncom.PumpMessages()
+        keyboard.hook(keys_listener)
 
     def find(self):
         self.requests_api()
@@ -48,13 +29,17 @@ class MyWidget(QMainWindow):
         map_photo = map_photo.scaled(1051, 751)
         self.map_lable.setPixmap(map_photo)
 
-    def chande_value(self):
-        pass
+    def chande_value(self, flag):
+        if flag == 1:
+            self.scale_spin_box.setValue(self.scale_spin_box.value() + 0.05)
+        if flag == 2:
+            self.scale_spin_box.setValue(self.scale_spin_box.value() - 0.05)
+        self.find()
 
     def requests_api(self):
         lat = self.edit_latitude.text()
         lon = self.edit_longitude.text()
-        scale = self.edit_scale.value()
+        scale = str(self.scale_spin_box.value())
         api_server = "http://static-maps.yandex.ru/1.x/"
 
         params = {

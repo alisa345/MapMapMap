@@ -114,7 +114,7 @@
     <string>Поиск</string>
    </property>
   </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox">
+  <widget class="QDoubleSpinBox" name="scale_spin_box">
    <property name="geometry">
     <rect>
      <x>90</x>
@@ -127,7 +127,10 @@
     <double>50.000000000000000</double>
    </property>
    <property name="singleStep">
-    <double>0.500000000000000</double>
+    <double>0.050000000000000</double>
+   </property>
+   <property name="value">
+    <double>0.010000000000000</double>
    </property>
   </widget>
  </widget>
