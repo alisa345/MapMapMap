@@ -31,9 +31,9 @@ class MyWidget(QMainWindow):
 
     def chande_value(self, flag):
         if flag == 1:
-            self.scale_spin_box.setValue(self.scale_spin_box.value() + 0.05)
+            self.scale_spin_box.setValue(self.scale_spin_box.value() + 0.01)
         if flag == 2:
-            self.scale_spin_box.setValue(self.scale_spin_box.value() - 0.05)
+            self.scale_spin_box.setValue(self.scale_spin_box.value() - 0.01)
         self.find()
 
     def requests_api(self):
