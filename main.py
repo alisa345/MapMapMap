@@ -56,6 +56,8 @@ class MyWidget(QMainWindow):
         self.find()
 
     def requests_api(self, press):
+        view_map = self.view_combobox.currentText()
+        print(view_map)
         lat = self.edit_latitude.text()
         lon = self.edit_longitude.text()
         if press is False:
@@ -63,13 +65,19 @@ class MyWidget(QMainWindow):
             self.ln_cent = self.edit_longitude.text()
         scale = str(self.scale_spin_box.value())
         api_server = "http://static-maps.yandex.ru/1.x/"
+        if view_map == 'Схема':
+            type = 'map'
+        elif view_map == 'Спутник':
+            type = 'sat'
+        else:
+            type = 'sat,skl'
 
         params = {
             "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
             "sll": ",".join([lon, lat]),
             "ll": ",".join([self.ln_cent, self.lt_cent]),
             "spn": ",".join([scale, scale]),
-            "l": "map"
+            "l": type
         }
 
         response = requests.get(api_server, params=params)
